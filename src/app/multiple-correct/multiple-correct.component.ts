@@ -1,26 +1,29 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
+interface CheckboxItem {
+  checked: boolean;
+  text: string;
+}
 
 @Component({
   selector: 'app-multiple-correct',
   templateUrl: './multiple-correct.component.html',
-  styleUrls: ['./multiple-correct.component.scss'],
+  styleUrls: ['./multiple-correct.component.css']
 })
 export class MultipleCorrectComponent {
-  checkboxes = [false, false, false, false];
-
   questionControl = new FormControl('');
+  items: CheckboxItem[] = [{ checked: false, text: '' }];
 
   onCheckboxChange(index: number) {
-    this.checkboxes[index - 1] = !this.checkboxes[index - 1];
+    this.items[index].checked = !this.items[index].checked;
   }
 
-  @Output() valueEvent = new EventEmitter<void>();
+  addCheckBox() {
+    this.items.push({ checked: false, text: '' });
+  }
 
-  getValue() {
-    console.log(`multiple correct: ${this.checkboxes}`);
-    this.valueEvent.emit();
-    return this.checkboxes;
+  deleteCheckBox(index: number) {
+    this.items.splice(index, 1);
   }
 }

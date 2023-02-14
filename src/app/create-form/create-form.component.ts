@@ -38,10 +38,10 @@ export class CreateFormComponent {
     'Email',
     // 'Date',
     // 'Single Correct',
-    // 'Multiple Correct',
+    'Multiple Correct',
   ];
 
-  mainForm = ['Title', 'Short Answer', 'Number', 'Email'];
+  mainForm = ['Title', 'Short Answer', 'Number', 'Email','Multiple Correct',];
 
   drop(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
