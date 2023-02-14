@@ -21,7 +21,7 @@ export class LoginComponent {
   ]);
 
   passwordFormControl = new FormControl('', [Validators.required]);
-  userNameFormControl = new FormControl();
+  emailNameFormControl = new FormControl();
 
   matcher = {
     isErrorState: (control: FormControl) => {
@@ -30,15 +30,15 @@ export class LoginComponent {
   };
 
   loginForm = new FormGroup({
-    userName: this.userNameFormControl,
+    email: this.emailNameFormControl,
     password: this.passwordFormControl,
   });
 
   isDisabled() {
-    const userName = this.loginForm.value.userName;
+    const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
 
-    if (!userName || !password) {
+    if (!email || !password) {
       return true;
     }
 
@@ -57,7 +57,7 @@ export class LoginComponent {
       'Content-Type': 'application/json',
     });
     const obj = {
-      username: this.loginForm.value.userName,
+      email: this.loginForm.value.email,
       password: this.loginForm.value.password,
     };
     this.httpclient

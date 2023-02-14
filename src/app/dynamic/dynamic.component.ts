@@ -53,6 +53,11 @@ export class DynamicComponent implements OnInit {
             options: ['ZZZ'],
           },
           {
+            question: 'What is your hometown?',
+            answertype: 'text',
+            options: ['ZZZ'],
+          },
+          {
             question: 'Select Gender?',
             answertype: 'single',
             options: ['male', 'female', 'other'],
@@ -78,7 +83,7 @@ export class DynamicComponent implements OnInit {
     // modify the data for backend
 
 
-    
+
     // this.allservices.getSurveyStructure(this.surveyID).subscribe((response: RootObject) => {
     //   // console.log(response);
     //   this.data = response;
