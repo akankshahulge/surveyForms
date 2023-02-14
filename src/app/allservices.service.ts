@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { from } from 'rxjs';
-import { RootObject } from './view-form/view-form.component';
 import { HistoryRootObject } from './history/history.component';
 import { ResponsesRootObject } from './survey-responses/survey-responses.component';
 @Injectable({
@@ -79,10 +78,8 @@ export class AllservicesService {
     let httpHeaders = new HttpHeaders({
       'content-Type': 'application/json',
     });
-    return this.httpClient.get<RootObject>(
-      `http://localhost:7777/survey/${survey_id}`,
-      { headers: httpHeaders }
-    );
+    //here
+    return 0;
   }
 
   //Fetch Survey ID
