@@ -96,55 +96,15 @@ export class CreateFormComponent {
     for (let i = 0; i < this.mainForm.length; i++) {
       if (this.mainForm[i] in formElementsMapping) {
         const key = this.mainForm[i] as keyof typeof formElementsMapping;
-        switch (key) {
-          case 'Title':
-            formData.push({
-              type: key,
-              data: this.headComponent.getValue(),
-            });
-            break;
-          case 'Short Answer':
-            formData.push({
-              type: key,
-              data: this.shortAnsComponent.getValue(),
-            });
-            break;
-          case 'Number':
-            formData.push({
-              type: key,
-              data: this.numberComponent.getValue(),
-            });
-            break;
-          case 'Email':
-            formData.push({
-              type: key,
-              data: this.emailComponent.getValue(),
-            });
-            break;
-          case 'Date':
-            formData.push({
-              type: key,
-              data: this.dateComponent.getValue(),
-            });
-            break;
-          case 'Single Correct':
-            formData.push({
-              type: key,
-              data: this.singleCorrectComponent.getValue(),
-            });
-            break;
-          case 'Multiple Correct':
-            formData.push({
-              type: key,
-              data: this.multipleCorrectComponent.getValue(),
-            });
-            break;
-          default:
-            break;
+        const component = this.getComponentForKey(key);
+        for (let j = 0; j < component.length; j++) {
+          formData.push({
+            type: key,
+            data: component[j].getValue(),
+          });
         }
       }
     }
-
     let headers1 = new HttpHeaders({
       'content-Type': 'application/json',
     });
@@ -153,10 +113,32 @@ export class CreateFormComponent {
     // Store formData in the database
 
     this.httpclient
-      .post('http://localhost:7600/create_form', formData, { headers: headers1 })
+      .post('http://localhost:7600/create_form', formData, {
+        headers: headers1,
+      })
       .subscribe((response) => {
         console.log(response);
       });
+  }
 
+  getComponentForKey(key: string) {
+    switch (key) {
+      case 'Title':
+        return [this.headComponent];
+      case 'Short Answer':
+        return [this.shortAnsComponent];
+      case 'Number':
+        return [this.numberComponent];
+      case 'Email':
+        return [this.emailComponent];
+      case 'Date':
+        return [this.dateComponent];
+      case 'Single Correct':
+        return [this.singleCorrectComponent];
+      case 'Multiple Correct':
+        return [this.multipleCorrectComponent];
+      default:
+        return [];
+    }
   }
 }

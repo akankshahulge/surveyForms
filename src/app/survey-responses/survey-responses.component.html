@@ -1,0 +1,19 @@
+<div class="parent">
+    <h1 class="text-center">{{data.message}}</h1>
+    
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title text-center">{{data.Responses[0].title}}</h3>
+            <hr>
+            <div *ngFor="let array of data.Responses">
+                <h3>Response Submitted by <u> <{{array.email}}> </u></h3>
+                <div *ngFor="let que of array.survey">
+                    <p><u>Question:</u> &nbsp; {{que.question}}</p>
+                    <p><u>Answer:</u>&nbsp; {{que.answer}}</p>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+</div>

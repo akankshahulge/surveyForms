@@ -42,7 +42,7 @@ export class LoginComponent {
       return true;
     }
 
-    if (password.length < 6) {
+    if (password.length < 4) {
       return true;
     }
 
@@ -50,6 +50,8 @@ export class LoginComponent {
   }
 
   login() {
+    // alert('Please wait while we verify your credentials...');
+
     console.log(this.loginForm.value);
     const headers1 = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -59,15 +61,17 @@ export class LoginComponent {
       password: this.loginForm.value.password,
     };
     this.httpclient
-      .post('http://localhost:7600/reg', obj, { headers: headers1 })
+      .post('http://localhost:7600/login', obj, { headers: headers1 })
       .subscribe(
         (response) => {
+          alert('Login successful!');
           console.log(response);
           this.router.navigate(['/home']); // handle successful login case
         },
         (error: HttpErrorResponse) => {
           if (error.status === 401) {
             alert('Wrong credentials. Please try again.');
+            this.router.navigate(['/home']); // re-route to login page
           } else {
             console.error(error);
           }

@@ -31,6 +31,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
+import { HistoryComponent } from './history/history.component';
+import { SurveyResponsesComponent } from './survey-responses/survey-responses.component';
+import { DynamicComponent } from './dynamic/dynamic.component';
 
 
 @NgModule({
@@ -48,6 +51,9 @@ import { RouterModule } from '@angular/router';
     MultipleCorrectComponent,
     HomeComponent,
     EmailComponent,
+    HistoryComponent,
+    SurveyResponsesComponent,
+    DynamicComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,20 +1,36 @@
-<!-- <div class="array-box-layout" *ngFor="let item of mainForm" cdkDrag>
-  <ng-container [ngSwitch]="item">
-    <app-head #headComponent *ngSwitchCase="'Title'"></app-head>
-    <app-short-ans
-      #shortAnsComponent
-      *ngSwitchCase="'Short Answer'"
-    ></app-short-ans>
-    <app-number #numberComponent *ngSwitchCase="'Number'"></app-number>
-    <app-email #emailComponent *ngSwitchCase="'Email'"></app-email>
-    <app-date #dateComponent *ngSwitchCase="'Date'"></app-date>
-    <app-single-correct
-      #singleCorrectComponent
-      *ngSwitchCase="'Single Correct'"
-    ></app-single-correct>
-    <app-multiple-correct
-      #multipleCorrectComponent
-      *ngSwitchCase="'Multiple Correct'"
-    ></app-multiple-correct>
-  </ng-container>
+<!-- <div class="card">
+    <div class="card-body">
+        <h3 class="card-title text-center">{{data.title}}</h3><br><br>
+        <form  (ngSubmit)="saveForm()" novalidate>
+            <div class="field" *ngFor="let que of data.survey" [ngSwitch]="que.answertype">
+                <h5 class="card-text">{{que.question}}</h5>
+                <div *ngSwitchCase="'text'" name="answertype">
+                    <textarea pInputTextArea name="options" cols="40%"
+                        placeholder="write your answer here"></textarea>
+                    <br>
+                </div>
+
+
+                <form *ngSwitchCase="'single'">
+                    <div *ngFor="let item of que.options">
+                        <input type="radio" name="radio"> &nbsp; {{ item }}
+                    </div><br>
+                </form>
+
+
+                <form *ngSwitchCase="'multiple'">
+                    <div *ngFor="let item of que.options">
+                        <input type="checkbox"> &nbsp; {{item}}
+                    </div><br>
+                </form>
+
+                <button type="button" class="btn btn-primary">Save</button>
+                <hr>
+            </div>
+            <br>
+            <input type="checkbox" name="decleration" id="decleration" checked> Send Response Copy to Me <br>
+            <button type="button" class="btn btn-primary">Final Submit</button>
+        </form>
+
+    </div>
 </div> -->
