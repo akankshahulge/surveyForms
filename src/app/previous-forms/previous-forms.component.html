@@ -1,2 +1,4 @@
-<p>previous-forms works!</p>
-<button>Form one</button>
+<div class="buttonContainer" *ngFor="let form of forms">
+  <button (click)="redirectToLink(form.link)">{{form.formName}}</button>
+</div>
+    <button routerLink="/signup" class="signup">Sign up</button>

@@ -34,7 +34,7 @@ import { RouterModule } from '@angular/router';
 import { HistoryComponent } from './history/history.component';
 import { SurveyResponsesComponent } from './survey-responses/survey-responses.component';
 import { DynamicComponent } from './dynamic/dynamic.component';
-
+import { PreviousFormsComponent } from './previous-forms/previous-forms.component';
 
 @NgModule({
   declarations: [
@@ -54,9 +54,10 @@ import { DynamicComponent } from './dynamic/dynamic.component';
     HistoryComponent,
     SurveyResponsesComponent,
     DynamicComponent,
+    PreviousFormsComponent,
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, PreviousFormsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

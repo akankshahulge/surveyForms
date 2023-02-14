@@ -32,7 +32,7 @@ export class CreateFormComponent {
   constructor(public httpclient: HttpClient) {}
 
   formElements = [
-    'Title',
+    // 'Title',
     'Short Answer',
     'Number',
     'Email',
@@ -93,6 +93,7 @@ export class CreateFormComponent {
 
   onFormSubmit() {
     const formData: any[] = [];
+
     for (let i = 0; i < this.mainForm.length; i++) {
       if (this.mainForm[i] in formElementsMapping) {
         const key = this.mainForm[i] as keyof typeof formElementsMapping;
@@ -105,6 +106,7 @@ export class CreateFormComponent {
         }
       }
     }
+
     let headers1 = new HttpHeaders({
       'content-Type': 'application/json',
     });

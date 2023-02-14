@@ -43,7 +43,7 @@ export class EmailComponent {
     console.log('Email: ', this.emailFormControl.value);
     return {
       question: this.questionControl.value,
-      email: this.emailFormControl.value,
+      value: this.emailFormControl.value,
     };
   }
 }

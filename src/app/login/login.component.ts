@@ -35,24 +35,28 @@ export class LoginComponent {
   });
 
   isDisabled() {
-    const email = this.loginForm.value.email;
-    const password = this.loginForm.value.password;
 
-    if (!email || !password) {
-      return true;
-    }
+    return false
 
-    if (password.length < 4) {
-      return true;
-    }
+    // const email = this.loginForm.value.email;
+    // const password = this.loginForm.value.password;
 
-    return false;
+    // if (!email || !password) {
+    //   return true;
+    // }
+
+    // if (password.length < 4) {
+    //   return true;
+    // }
+
+    // return false;
   }
 
   login() {
-    // alert('Please wait while we verify your credentials...');
-
+    alert('Please wait while we verify your credentials...');
     console.log(this.loginForm.value);
+    // this.router.navigate(['/home']); // re-route to login page
+
     const headers1 = new HttpHeaders({
       'Content-Type': 'application/json',
     });

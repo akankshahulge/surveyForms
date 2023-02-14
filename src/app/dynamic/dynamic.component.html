@@ -1,45 +1,37 @@
-<div class="card">
-  <div class="card-body">
-    <h3 class="card-title text-center">{{ data.title }}</h3>
-    <br /><br />
-    <form [formGroup]="dynamicForm" (ngSubmit)="saveForm()" novalidate>
-      <div
-        class="field"
-        *ngFor="let que of data.survey"
-        [ngSwitch]="que.answertype"
-      >
-        <h5 class="card-text">{{ que.question }}</h5>
-        <div *ngSwitchCase="'text'" name="answertype">
-          <textarea
-            pInputTextArea
-            name="options"
-            cols="40%"
-            placeholder="write your answer here"
-          ></textarea>
-          <br />
-        </div>
+<div *ngFor="let item of this.data.response; let i = index">
+  <ng-container [ngSwitch]="item.type">
 
-        <form *ngSwitchCase="'single'">
-          <div *ngFor="let item of que.options">
-            <input type="radio" name="radio" /> &nbsp; {{ item }}
-          </div>
-          <br />
-        </form>
+    <div *ngSwitchCase="'Title'">
+      <div class="type">{{item.type}}</div>
+      <h1>{{item.data.formTitle}}</h1>
+      <hr>
+    </div>
 
-        <form *ngSwitchCase="'multiple'">
-          <div *ngFor="let item of que.options">
-            <input type="checkbox" /> &nbsp; {{ item }}
-          </div>
-          <br />
-        </form>
+    <div *ngSwitchCase="'Short Answer'">
+      <div class="type">{{item.type}}</div>
+      <h1>{{item.data.question}}</h1>
+      <input type="text" [name]="'Short Answer-' + item.data.question">
+      <hr>
+    </div>
 
-        <button type="button" class="btn btn-primary">Save</button>
-        <hr />
-      </div>
-      <br />
-      <input type="checkbox" name="decleration" id="decleration" checked /> Send
-      Response Copy to Me <br />
-      <button type="button" class="btn btn-primary">Final Submit</button>
-    </form>
-  </div>
+    <div *ngSwitchCase="'Number'">
+      <div class="type">{{item.type}}</div>
+      <h1>{{item.data.question}}</h1>
+      <input type="text" [name]="'Number-' + item.data.question">
+      <hr>
+    </div>
+
+    <div *ngSwitchCase="'Email'">
+      <div class="type">{{item.type}}</div>
+      <h1>{{item.data.question}}</h1>
+      <input type="text" [name]="'Email-' + item.data.question">
+      <hr>
+    </div>
+
+    <input *ngSwitchDefault type="text">
+  </ng-container>
 </div>
+
+<button (click)="saveForm()">saveForm</button>
+
+ <!-- <button (click)="onSubmit(i, shortAnswerInput.value)">Submit</button> -->

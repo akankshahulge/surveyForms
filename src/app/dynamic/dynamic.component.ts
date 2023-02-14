@@ -21,68 +21,56 @@ export class RootObject {
   templateUrl: './dynamic.component.html',
   styleUrls: ['./dynamic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-
 })
-
 export class DynamicComponent implements OnInit {
-
   public data: any;
   public url: string = '';
   public surveyID: String = '';
-  dynamicForm = this.fb.group({})
+  dynamicForm = this.fb.group({});
 
   constructor(
     public allservices: AllservicesService,
     private fb: FormBuilder,
     private route: Router
-  ) {
-
-  }
+  ) {}
   ngOnInit() {
     //To get a SurveyID from URL
     this.url = this.route.routerState.snapshot.url;
     this.surveyID = this.url.split('/')[2];
 
-      this.data = {
-        title: 'Dummy Form',
-        email: 'akash@gmail.com',
-        survey: [
-          {
-            question: 'What is your Name?',
-            answertype: 'text',
-            options: ['ZZZ'],
+    this.data = {
+      response: [
+        {
+          type: 'Title',
+          data: {
+            formTitle: 'form title',
           },
-          {
-            question: 'What is your hometown?',
-            answertype: 'text',
-            options: ['ZZZ'],
+        },
+        {
+          type: 'Short Answer',
+          data: {
+            question: 'first question',
+            value: 'first answer',
           },
-          {
-            question: 'Select Gender?',
-            answertype: 'single',
-            options: ['male', 'female', 'other'],
+        },
+        {
+          type: 'Number',
+          data: {
+            question: 'number question',
+            value: 123456,
           },
-          {
-            question: 'Higher Qualification',
-            answertype: 'single',
-            options: ['SSC', 'HSC', 'Diploma', 'B.Tech'],
+        },
+        {
+          type: 'Email',
+          data: {
+            question: 'email question',
+            value: 'example@email.com',
           },
-          {
-            question: 'Hobby',
-            answertype: 'text',
-            options: [''],
-          },
-          {
-            question: 'Favourite Game',
-            answertype: 'single',
-            options: ['Cricket', 'Football', 'Chess', 'other'],
-          },
-        ],
-      };
+        },
+      ],
+    };
 
     // modify the data for backend
-
-
 
     // this.allservices.getSurveyStructure(this.surveyID).subscribe((response: RootObject) => {
     //   // console.log(response);
@@ -99,10 +87,31 @@ export class DynamicComponent implements OnInit {
     //   this.dynamicForm.addControl(control.title,this.fb.control(control.survey))
     //   console.log(typeof controls)
     // }
-
     // console.log(JSON.parse(JSON.stringify(this.data.survey[0])).question)
   }
-  saveForm() {
-    console.log(this.dynamicForm.value)
+  saveForm(): void {
+    const responses = this.data.response.map((item: { type: any; data: { formTitle: any; question: any; }; }) => {
+      const type = item.type;
+      let response;
+      switch (type) {
+        case 'Title':
+          response = item.data.formTitle;
+          break;
+        case 'Short Answer':
+        case 'Number':
+        case 'Email':
+          response = (
+            document.querySelector(
+              `[name="${type}-${item.data.question}"]`
+            ) as HTMLInputElement
+          )?.value;
+          break;
+        default:
+          response = '';
+          break;
+      }
+      return { type, response };
+    });
+    console.log(responses);
   }
 }

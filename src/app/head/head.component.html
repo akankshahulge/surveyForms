@@ -1,6 +1,23 @@
 <form class="example-form">
-  <mat-form-field class="example-full-width">
-    <mat-label>Form Title🦚</mat-label>
+
+  <!-- <mat-form-field class="example-full-width">
+    <mat-label>Form Title</mat-label>
     <input matInput placeholder="How are you today?" value="" />
   </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Survey Type</mat-label>
+    <input matInput placeholder="How are you today?" value="" />
+  </mat-form-field> -->
+
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Discription</mat-label>
+    <textarea
+      matInput
+      [formControl]="discriptionControl"
+      placeholder="Enter your answer"
+    ></textarea>
+  </mat-form-field>
+
 </form>

@@ -1,4 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  FormControl,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+} from '@angular/forms';
+
 
 @Component({
   selector: 'app-head',
@@ -8,6 +15,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class HeadComponent {
 
   @Output() valueEvent = new EventEmitter<void>();
+
+  discriptionControl = new FormControl()
 
   getValue() {
     const formTitle = (
