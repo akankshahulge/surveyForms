@@ -17,7 +17,7 @@ export class ShortAnsComponent {
     console.log('Answer: ', this.answerControl.value);
     return {
       question: this.questionControl.value,
-      answer: this.answerControl.value,
+      value: this.answerControl.value,
     };
   }
 }

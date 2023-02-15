@@ -32,7 +32,7 @@ export class CreateFormComponent {
   constructor(public httpclient: HttpClient) {}
 
   formElements = [
-    'Title',
+    // 'Title',
     'Short Answer',
     'Number',
     'Email',
@@ -92,55 +92,18 @@ export class CreateFormComponent {
   multipleCorrectComponent!: MultipleCorrectComponent;
 
   onFormSubmit() {
+
     const formData: any[] = [];
+
     for (let i = 0; i < this.mainForm.length; i++) {
       if (this.mainForm[i] in formElementsMapping) {
         const key = this.mainForm[i] as keyof typeof formElementsMapping;
-        switch (key) {
-          case 'Title':
-            formData.push({
-              type: key,
-              data: this.headComponent.getValue(),
-            });
-            break;
-          case 'Short Answer':
-            formData.push({
-              type: key,
-              data: this.shortAnsComponent.getValue(),
-            });
-            break;
-          case 'Number':
-            formData.push({
-              type: key,
-              data: this.numberComponent.getValue(),
-            });
-            break;
-          case 'Email':
-            formData.push({
-              type: key,
-              data: this.emailComponent.getValue(),
-            });
-            break;
-          case 'Date':
-            formData.push({
-              type: key,
-              data: this.dateComponent.getValue(),
-            });
-            break;
-          case 'Single Correct':
-            formData.push({
-              type: key,
-              data: this.singleCorrectComponent.getValue(),
-            });
-            break;
-          case 'Multiple Correct':
-            formData.push({
-              type: key,
-              data: this.multipleCorrectComponent.getValue(),
-            });
-            break;
-          default:
-            break;
+        const component = this.getComponentForKey(key);
+        for (let j = 0; j < component.length; j++) {
+          formData.push({
+            type: key,
+            data: component[j].getValue(),
+          });
         }
       }
     }
@@ -149,14 +112,86 @@ export class CreateFormComponent {
       'content-Type': 'application/json',
     });
 
+    ////// Code for chinmay starts here /////
+    console.log('--------original----------');
     console.log(formData);
+    console.log('--------converted form data----------');
+const input = formData;
+
+const output = {
+  title: '',
+  description: 'form description',
+  questions: [] as {
+    questionContent: string;
+    questionType: string;
+    questionNumber: number;
+  }[],
+};
+
+let questionNumber = 1;
+
+for (let i = 0; i < input.length; i++) {
+  const obj = input[i];
+
+  if (obj.type === 'Title') {
+    output.title = obj.data.formTitle;
+  } else if (obj.type !== 'Description') {
+    const questionObj = {
+      questionContent: obj.data.question,
+      questionType: obj.type,
+      questionNumber: questionNumber,
+    };
+
+
+
+    output.questions.push(questionObj);
+
+    questionNumber++;
+  }
+}
+
+console.log(output);
+
+
+    ///// Code for chinmay ends here /////
+
+
+
+
+
+
+    // console.log(formData);
     // Store formData in the database
 
     this.httpclient
-      .post('http://localhost:7600/create_form', formData, { headers: headers1 })
+      .post('http://localhost:7600/create_form', formData, {
+        headers: headers1,
+      })
       .subscribe((response) => {
         console.log(response);
       });
+  }
 
+
+
+  getComponentForKey(key: string) {
+    switch (key) {
+      case 'Title':
+        return [this.headComponent];
+      case 'Short Answer':
+        return [this.shortAnsComponent];
+      case 'Number':
+        return [this.numberComponent];
+      case 'Email':
+        return [this.emailComponent];
+      case 'Date':
+        return [this.dateComponent];
+      case 'Single Correct':
+        return [this.singleCorrectComponent];
+      case 'Multiple Correct':
+        return [this.multipleCorrectComponent];
+      default:
+        return [];
+    }
   }
 }

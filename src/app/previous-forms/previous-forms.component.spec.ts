@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewFormComponent } from './view-form.component';
+import { PreviousFormsComponent } from './previous-forms.component';
 
-describe('ViewFormComponent', () => {
-  let component: ViewFormComponent;
-  let fixture: ComponentFixture<ViewFormComponent>;
+describe('PreviousFormsComponent', () => {
+  let component: PreviousFormsComponent;
+  let fixture: ComponentFixture<PreviousFormsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewFormComponent ]
+      declarations: [ PreviousFormsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewFormComponent);
+    fixture = TestBed.createComponent(PreviousFormsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

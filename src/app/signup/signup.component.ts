@@ -55,13 +55,13 @@ export class SignupComponent {
 
   signupForm = new FormGroup({
     username: this.userNameFormControl,
-    email: this.emailFormControl,
+    email_id: this.emailFormControl,
     password: this.passwordFormControl,
     confirmPassword: this.confirmPasswordFormControl,
   });
 
   isDisabled() {
-    const email = this.signupForm.value.email;
+    const email = this.signupForm.value.email_id;
     const password = this.signupForm.value.password;
     const confirmPassword = this.signupForm.value.confirmPassword;
 
@@ -91,18 +91,18 @@ export class SignupComponent {
 
     const obj = {
       username: this.signupForm.value.username,
-      email: this.signupForm.value.email,
+      email_id: this.signupForm.value.email_id,
       password: this.signupForm.value.password,
     };
     console.log(obj);
-    
+
     this.httpclient
       .post('http://localhost:7600/reg', obj, { headers: headers1 })
       .subscribe((response) => {
         console.log(response);
 
-        
+
       });
 
   }
-} 
+}

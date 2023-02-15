@@ -44,7 +44,7 @@ export class NumberComponent {
     console.log('Number: ', this.numberControl.value);
     return {
       question: this.questionControl.value,
-      number: this.numberControl.value,
+      value: this.numberControl.value,
     };
   }
 }

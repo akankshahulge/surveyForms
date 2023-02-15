@@ -21,7 +21,7 @@ export class LoginComponent {
   ]);
 
   passwordFormControl = new FormControl('', [Validators.required]);
-  userNameFormControl = new FormControl();
+  emailNameFormControl = new FormControl();
 
   matcher = {
     isErrorState: (control: FormControl) => {
@@ -30,44 +30,52 @@ export class LoginComponent {
   };
 
   loginForm = new FormGroup({
-    userName: this.userNameFormControl,
+    email: this.emailNameFormControl,
     password: this.passwordFormControl,
   });
 
   isDisabled() {
-    const userName = this.loginForm.value.userName;
-    const password = this.loginForm.value.password;
 
-    if (!userName || !password) {
-      return true;
-    }
+    return false
 
-    if (password.length < 6) {
-      return true;
-    }
+    // const email = this.loginForm.value.email;
+    // const password = this.loginForm.value.password;
 
-    return false;
+    // if (!email || !password) {
+    //   return true;
+    // }
+
+    // if (password.length < 4) {
+    //   return true;
+    // }
+
+    // return false;
   }
 
   login() {
+    alert('Please wait while we verify your credentials...');
     console.log(this.loginForm.value);
+    // this.router.navigate(['/home']); // re-route to login page
+
     const headers1 = new HttpHeaders({
       'Content-Type': 'application/json',
     });
     const obj = {
-      username: this.loginForm.value.userName,
+      email: this.loginForm.value.email,
       password: this.loginForm.value.password,
     };
     this.httpclient
-      .post('http://localhost:7600/reg', obj, { headers: headers1 })
+      .post('http://localhost:7600/login', obj, { headers: headers1 })
       .subscribe(
         (response) => {
+          alert('Login successful!');
           console.log(response);
           this.router.navigate(['/home']); // handle successful login case
         },
         (error: HttpErrorResponse) => {
           if (error.status === 401) {
             alert('Wrong credentials. Please try again.');
+            this.router.navigate(['/home']); // re-route to login page
           } else {
             console.error(error);
           }
