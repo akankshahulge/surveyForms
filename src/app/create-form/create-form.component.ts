@@ -92,6 +92,7 @@ export class CreateFormComponent {
   multipleCorrectComponent!: MultipleCorrectComponent;
 
   onFormSubmit() {
+
     const formData: any[] = [];
 
     for (let i = 0; i < this.mainForm.length; i++) {
@@ -111,7 +112,55 @@ export class CreateFormComponent {
       'content-Type': 'application/json',
     });
 
+    ////// Code for chinmay starts here /////
+    console.log('--------original----------');
     console.log(formData);
+    console.log('--------converted form data----------');
+const input = formData;
+
+const output = {
+  title: '',
+  description: 'form description',
+  questions: [] as {
+    questionContent: string;
+    questionType: string;
+    questionNumber: number;
+  }[],
+};
+
+let questionNumber = 1;
+
+for (let i = 0; i < input.length; i++) {
+  const obj = input[i];
+
+  if (obj.type === 'Title') {
+    output.title = obj.data.formTitle;
+  } else if (obj.type !== 'Description') {
+    const questionObj = {
+      questionContent: obj.data.question,
+      questionType: obj.type,
+      questionNumber: questionNumber,
+    };
+
+
+
+    output.questions.push(questionObj);
+
+    questionNumber++;
+  }
+}
+
+console.log(output);
+
+
+    ///// Code for chinmay ends here /////
+
+
+
+
+
+
+    // console.log(formData);
     // Store formData in the database
 
     this.httpclient
@@ -122,6 +171,8 @@ export class CreateFormComponent {
         console.log(response);
       });
   }
+
+
 
   getComponentForKey(key: string) {
     switch (key) {

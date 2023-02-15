@@ -89,29 +89,56 @@ export class DynamicComponent implements OnInit {
     // }
     // console.log(JSON.parse(JSON.stringify(this.data.survey[0])).question)
   }
+  // saveForm(): void {
+  //   const responses = this.data.response.map((item: { type: any; data: { formTitle: any; question: any; }; }) => {
+  //     const type = item.type;
+  //     let response;
+  //     switch (type) {
+  //       case 'Title':
+  //         response = item.data.formTitle;
+  //         break;
+  //       case 'Short Answer':
+  //       case 'Number':
+  //       case 'Email':
+  //         response = (
+  //           document.querySelector(
+  //             `[name="${type}-${item.data.question}"]`
+  //           ) as HTMLInputElement
+  //         )?.value;
+  //         break;
+  //       default:
+  //         response = '';
+  //         break;
+  //     }
+  //     return { type, response };
+  //   });
+  //   console.log(responses);
+  // }
+
   saveForm(): void {
-    const responses = this.data.response.map((item: { type: any; data: { formTitle: any; question: any; }; }) => {
-      const type = item.type;
-      let response;
-      switch (type) {
-        case 'Title':
-          response = item.data.formTitle;
-          break;
-        case 'Short Answer':
-        case 'Number':
-        case 'Email':
-          response = (
-            document.querySelector(
-              `[name="${type}-${item.data.question}"]`
-            ) as HTMLInputElement
-          )?.value;
-          break;
-        default:
-          response = '';
-          break;
+    const title = this.data.response.find((item: any) => item.type === 'Title')
+      .data.formTitle;
+    const description = this.data.response.find(
+      (item: any) => item.type === 'Description'
+    )?.data;
+
+    const formData: any = {
+      title,
+      description,
+      questions: [],
+    };
+
+    this.data.response.forEach((item: any, i: number) => {
+      if (item.type !== 'Title' && item.type !== 'Description') {
+        const question: any = {
+          questionContent: item.data.question,
+          questionType: item.type,
+          questionNumber: i,
+        };
+        formData.questions.push(question);
       }
-      return { type, response };
     });
-    console.log(responses);
+
+    console.log(formData);
   }
 }
